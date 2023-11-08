@@ -1,0 +1,7 @@
+<!-- answer_form.html -->
+<h2>Your Answer</h2>
+<form method="post">
+  {% csrf_token %}
+  <textarea name="body" placeholder="Your answer"></textarea>
+  <button type="submit">Submit Answer</button>
+</form>

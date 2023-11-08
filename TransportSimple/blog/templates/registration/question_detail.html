@@ -1,0 +1,44 @@
+{% comment %} <!-- question_detail.html -->
+<h2>{{ question.title }}</h2>
+<p>{{ question.body }}</p>
+
+<h3>Answers</h3>
+<ul>
+  {% for answer in question.answer_set.all %}
+    <li>{{ answer.body }} - Liked by {{ answer.like_set.count }} people
+      <form method="post" action="{% url 'answer_like' answer.id %}">
+        {% csrf_token %}
+        <button type="submit">Like</button>
+      </form>
+    </li>
+  {% endfor %}
+</ul>
+
+<h3>Your Answer</h3>
+<form method="post" action="{% url 'answer_create' question.id %}">
+  {% csrf_token %}
+  <textarea name="body"></textarea>
+  <button type="submit">Submit Answer</button>
+</form> {% endcomment %}
+<h2>{{ question.title }}</h2>
+<p>{{ question.body }}</p>
+
+<h3>Answers</h3>
+<ul>
+  {% for answer in question.answer_set.all %}
+    <li>
+      {{ answer.body }} - Answered by: {{ answer.author.username }} - Liked by: {{ answer.like_set.count }} people
+      <form method="post" action="{% url 'answer_like' answer.id %}">
+        {% csrf_token %}
+        <button type="submit">Like</button>
+      </form>
+    </li>
+  {% endfor %}
+</ul>
+
+<h3>Your Answer</h3>
+<form method="post" action="{% url 'answer_create' question.id %}">
+  {% csrf_token %}
+  <textarea name="body"></textarea>
+  <button type="submit">Submit Answer</button>
+</form>

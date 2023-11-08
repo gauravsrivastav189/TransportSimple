@@ -1,0 +1,59 @@
+{% comment %} <!-- question_list.html -->
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Question List</title>
+</head>
+<body>
+
+  {% if not request.user.is_authenticated %}
+  <p>You are not logged in. Please <a href="{% url 'login' %}">login</a> to post questions and answers.</p>
+{% else %}
+  <p>Welcome, {{ request.user.username }}! <a href="{% url 'logout' %}">Logout</a></p>
+  
+  <h3>Options</h3>
+  <ul>
+      <li><a href="{% url 'question_new' %}">Ask a new question</a></li>
+      <li>Answer questions</li>
+      <li>Like questions</li>
+      <!-- Add appropriate links for answering and liking questions -->
+  </ul>
+{% endif %}
+  <h1>Questions</h1>
+    <ul>
+        {% for question in questions %}
+            <li><a href="{% url 'question_detail' question.id %}">{{ question.title }}</a></li>
+        {% endfor %}
+    </ul>
+
+</body>
+</html> {% endcomment %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Question List</title>
+</head>
+<body>
+    {% if not request.user.is_authenticated %}
+        <p>You are not logged in. Please <a href="{% url 'login' %}">login</a> to post questions and answers.</p>
+    {% else %}
+        <p>Welcome, {{ request.user.username }}! <a href="{% url 'logout' %}">Logout</a></p>
+        <h3>Options</h3>
+        <ul>
+            <li><a href="{% url 'question_new' %}">Ask a new question</a></li>
+            <li>Click below questions to answer them </li>
+            <li>open Q to like </li>
+            <!-- Add appropriate links for answering and liking questions -->
+        </ul>
+    {% endif %}
+    <h1>Questions</h1>
+    <ul>
+        {% for question in questions %}
+            <li>
+                <a href="{% url 'question_detail' question.id %}">{{ question.title }}</a> 
+                (Asked by: {{ question.author.username }})  <!-- Show the author's username -->
+            </li>
+        {% endfor %}
+    </ul>
+</body>
+</html>
